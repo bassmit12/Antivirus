@@ -27,7 +27,8 @@ Antivirus/
 - SQLite-backed signature store with a simple schema.
 - CLI to initialise and inspect the signature database.
 - Recursive directory scanner that hashes files and flags matches.
-- Lightweight unit tests covering hashing and detection logic.
+- Heuristic analyser that scores running processes for suspicious behaviour.
+- Lightweight unit tests covering hashing, detection logic, and heuristics.
 
 ## Prerequisites
 - Python 3.10+ (comes with the built-in `sqlite3` module).
@@ -51,13 +52,19 @@ Antivirus/
    ```
    This creates `signature_antivirus.db`, applies the schema, and loads seed signatures including the provided `autohello_installer.exe` sample.
 
-4. **Run a scan**
+4. **Run a file scan**
    ```powershell
    python -m src.main --path Virus
    ```
    The scanner traverses the given directory, logs file hashes, and prints a report highlighting any malicious matches.
 
-5. **Run the automated tests (optional)**
+5. **Add heuristic process analysis (optional)**
+   ```powershell
+   python -m src.main --scan-processes --process-threshold 40
+   ```
+   Combine with `--path` to run both checks in one command. Use `--include-system-processes` if you want to include services running under `NT AUTHORITY`.
+
+6. **Run the automated tests (optional)**
    ```powershell
    pytest
    ```
