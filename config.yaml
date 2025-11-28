@@ -1,0 +1,111 @@
+# SecureGuard Antivirus Configuration
+
+app:
+  name: "SecureGuard Antivirus"
+  version: "2.0.0"
+  author: "SecureGuard Team"
+
+scanning:
+  default_recursive: true
+  include_hidden: false
+  max_file_size_mb: 500
+  threads: 4
+  timeout_seconds: 300
+  skip_extensions:
+    - ".txt"
+    - ".md"
+    - ".log"
+  
+detection:
+  signature_enabled: true
+  heuristic_enabled: true
+  behavior_enabled: true
+  cloud_lookup_enabled: true
+  ml_enabled: true
+  
+  # Detection sensitivity (low, medium, high, paranoid)
+  sensitivity: "medium"
+  
+  # Heuristic thresholds
+  entropy_threshold: 7.2
+  suspicious_string_threshold: 5
+  
+api:
+  virustotal:
+    enabled: true
+    timeout: 10
+    cache_duration_hours: 24
+    rate_limit_per_minute: 4
+  
+  malwarebazaar:
+    enabled: true
+    timeout: 10
+    cache_duration_hours: 24
+
+quarantine:
+  enabled: true
+  auto_quarantine: false
+  encrypt: true
+  max_size_gb: 10
+  auto_delete_days: 30
+
+realtime_protection:
+  enabled: false
+  monitor_filesystem: true
+  monitor_processes: true
+  monitor_network: false
+  monitor_registry: true
+  
+  watch_paths:
+    - "C:\\Users"
+    - "C:\\Program Files"
+    - "C:\\Program Files (x86)"
+    - "C:\\Windows\\System32"
+
+scheduler:
+  enabled: false
+  quick_scan_time: "12:00"
+  full_scan_day: "Sunday"
+  full_scan_time: "02:00"
+  update_signatures_interval_hours: 6
+
+updates:
+  auto_update_signatures: true
+  auto_update_app: false
+  check_interval_hours: 6
+
+ui:
+  theme: "dark"
+  language: "en"
+  show_notifications: true
+  minimize_to_tray: true
+  start_minimized: false
+
+logging:
+  level: "INFO"
+  file: "logs/antivirus.log"
+  max_size_mb: 50
+  backup_count: 5
+  console_output: true
+
+# Sandbox Configuration
+sandbox:
+  # Local sandbox (lightweight, safe simulation)
+  enabled: true
+  timeout_seconds: 30
+  max_cpu_percent: 80
+  max_memory_mb: 500
+  
+  # Cuckoo Sandbox integration (requires Cuckoo server)
+  cuckoo:
+    enabled: false  # Set to true if you have Cuckoo running
+    api_url: "http://localhost:8090"
+    api_key: null  # Optional API key
+    timeout_seconds: 300  # 5 minutes for full analysis
+
+whitelist:
+  enabled: true
+  paths:
+    - "C:\\Windows\\System32\\svchost.exe"
+  hashes: []
+  certificates: []

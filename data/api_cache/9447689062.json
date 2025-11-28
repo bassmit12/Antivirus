@@ -1,0 +1,1 @@
+{"timestamp": 1764194236.5438814, "value": {"found": true, "malicious": 7, "suspicious": 0, "harmless": 0, "undetected": 65, "total_engines": 76, "threat_names": ["MALICIOUS", "Static AI - Suspicious PE", "BehavesLike.Win64.Generic.rc", "Unsafe", "Malicious", "ti!9ADAC2C80158", "W64.AIDetectMalware"], "first_seen": "2025-11-02 20:57:33+00:00", "reputation": 0}}
